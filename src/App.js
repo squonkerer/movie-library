@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import MovieSearch from './MovieSearch';
+import MovieDetails from './MovieDetails'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 function App() {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleMovieSelect = (movie) => {
+    setSelectedMovie(movie);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Container>
+        <Row className="app">
+          <Col className="left-field">
+            <MovieSearch onMovieSelect={handleMovieSelect} />
+          </Col>
+          <Col className="right-field">
+            {selectedMovie ? <MovieDetails movie={selectedMovie} /> : <p>Select a movie to see details</p>}
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
